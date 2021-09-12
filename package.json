@@ -1,0 +1,14 @@
+{
+  "name": "codeshift",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/jscodeshift": "^0.11.2",
+    "jscodeshift": "^0.13.0"
+  },
+  "devDependencies": {
+    "@linzjs/style": "^3.1.1",
+    "@types/node": "^16.9.1"
+  }
+}
