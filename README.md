@@ -16,3 +16,14 @@ Examples
 - `export {foo} from './bar'` -> `export {foo} from './bar.js'`
 - `export * from './bar'` -> `export * from './bar.js'`
 
+
+## src/ts-dirname.js
+
+Converts `__dirname` and `__filename` into ESM module constants
+
+```typescript
+import path from 'node:path';
+import url from 'node:url';
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+const __filename = url.fileURLToPath(import.meta.url);
+```
