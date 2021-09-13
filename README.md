@@ -12,10 +12,20 @@ Converts Typescript files that use `import {foo} from './bar'` into ESM module i
 
 Examples
 
-- `import {foo} from './bar'` -> `import {foo} from './bar.js'`
-- `export {foo} from './bar'` -> `export {foo} from './bar.js'`
-- `export * from './bar'` -> `export * from './bar.js'`
+Before:
+```typescript
+import { Foo } from './bar';
+export { Bar } from './bar';
+export * from './baz';
+```
 
+After: 
+
+```typescript
+import { Foo } from './bar.js';
+export { Bar } from './bar.js';
+export * from './baz.js';
+```
 
 ## src/ts-dirname.js
 
@@ -24,6 +34,7 @@ Converts `__dirname` and `__filename` into ESM module constants
 ```typescript
 import path from 'node:path';
 import url from 'node:url';
+
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const __filename = url.fileURLToPath(import.meta.url);
 ```
