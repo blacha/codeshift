@@ -18,7 +18,7 @@ function resolvePath(filePath, source) {
   if (!isFolder) return source + '.js';
   const output = path.join(source, 'index.js');
   // path.join removes './'
-  if (source.startsWith('.')) return output;
+  if (!source.startsWith('.')) return output;
   return './' + output;
 }
 
