@@ -9,7 +9,12 @@ const path = require('path');
  */
 function resolvePath(filePath, source) {
   if (typeof source !== 'string') return source;
-  if (!source.startsWith('.')) return source;
+  const folderCount = source.split('/').length;
+  if (source.startsWith('@') && folderCount > 1) return source + '.js';
+  if (!source.startsWith('.')) {
+    if (folderCount > 0) return source + '.js';
+    return source;
+  }
   if (source.endsWith('.js')) return source;
 
   const pathName = path.join(path.dirname(filePath), source);
@@ -32,9 +37,9 @@ export default function tsImportAddExt(fileInfo, api) {
 
   function replaceSource(node) {
     const original = node.value;
-    console.log(node.value);
     const newValue = resolvePath(fileInfo.path, node.value);
     if (original === newValue) return;
+    console.log({ original, newValue });
     if (fs.existsSync(node.value)) console.error('FailedToFind : ' + node.value);
     node.value = newValue;
   }
