@@ -9,13 +9,19 @@ const path = require('path');
  */
 function resolvePath(filePath, source) {
   if (typeof source !== 'string') return source;
+  if (source.endsWith('.js')) return source;
+
   const folderCount = source.split('/').length;
-  if (source.startsWith('@') && folderCount > 1) return source + '.js';
-  if (!source.startsWith('.')) {
-    if (folderCount > 0) return source + '.js';
+  // @ modules eg @some/package/baz
+  if (source.startsWith('@')) {
+    if (folderCount > 2) return source + '.js';
     return source;
   }
-  if (source.endsWith('.js')) return source;
+  // normal import 'some-package/index'
+  if (!source.startsWith('.')) {
+    if (folderCount > 1) return source + '.js';
+    return source;
+  }
 
   const pathName = path.join(path.dirname(filePath), source);
   const isFolder = fs.existsSync(pathName);
