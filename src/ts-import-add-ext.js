@@ -32,10 +32,11 @@ export default function tsImportAddExt(fileInfo, api) {
 
   function replaceSource(node) {
     const original = node.value;
+    console.log(node.value);
     const newValue = resolvePath(fileInfo.path, node.value);
     if (original === newValue) return;
-    console.log('Replacing', original, '=>', newValue);
     if (fs.existsSync(node.value)) console.error('FailedToFind : ' + node.value);
+    node.value = newValue;
   }
 
   root.find(j.ImportDeclaration).forEach((f) => replaceSource(f.node.source));
