@@ -28,11 +28,11 @@ export default function tsDirname(fileInfo, api) {
     const imports = root.find(j.Declaration);
     const firstImport = imports.at(0).get();
     if (!hasPath) {
-      const stmt = j.template.statement`import path from 'node:path';\n`;
+      const stmt = j.template.statement`import path from 'path';\n`;
       firstImport.insertBefore(stmt);
     }
     if (!hasUrl) {
-      const stmt = j.template.statement`import url from 'node:url';\n`;
+      const stmt = j.template.statement`import url from 'url';\n`;
       firstImport.insertBefore(stmt);
     }
 
