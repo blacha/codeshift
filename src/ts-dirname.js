@@ -1,18 +1,10 @@
 /**
- * Replace __dirname and __filename with esm module versions
- *
- * ```typescript
- * const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
- * const __filename = url.fileURLToPath(import.meta.url);
- * ```
- *
  * @param {import('jscodeshift').FileInfo} fileInfo
  * @param {import('jscodeshift').API} api
+ * @param {import('jscodeshift').Collection<any>} root
  */
-export default function tsDirname(fileInfo, api) {
+export function runTsDirName(fileInfo, api, root) {
   const j = api.jscodeshift;
-  const root = j(fileInfo.source);
-
   const dirName = root.find(j.Identifier, { name: '__dirname' });
   const fileName = root.find(j.Identifier, { name: '__filename' });
 
@@ -45,6 +37,22 @@ export default function tsDirname(fileInfo, api) {
       firstImport.insertBefore(stmt);
     }
   }
+}
 
+/**
+ * Replace __dirname and __filename with esm module versions
+ *
+ * ```typescript
+ * const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+ * const __filename = url.fileURLToPath(import.meta.url);
+ * ```
+ *
+ * @param {import('jscodeshift').FileInfo} fileInfo
+ * @param {import('jscodeshift').API} api
+ */
+export default function tsDirname(fileInfo, api) {
+  const j = api.jscodeshift;
+  const root = j(fileInfo.source);
+  runTsDirName(fileInfo, api, root);
   return root.toSource();
 }

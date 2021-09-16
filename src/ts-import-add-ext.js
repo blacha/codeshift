@@ -20,6 +20,7 @@ function resolvePath(filePath, source) {
   // normal import 'some-package/index'
   if (!source.startsWith('.')) {
     if (folderCount > 1) return source + '.js';
+    if (source === 'fs/promises') return source;
     return source;
   }
 
@@ -32,15 +33,13 @@ function resolvePath(filePath, source) {
   if (!source.startsWith('.')) return output;
   return './' + output;
 }
-
 /**
  * @param {import('jscodeshift').FileInfo} fileInfo
  * @param {import('jscodeshift').API} api
+ * @param {import('jscodeshift').Collection<any>} root
  */
-export default function tsImportAddExt(fileInfo, api) {
+export function runTsImportAddExt(fileInfo, api, root) {
   const j = api.jscodeshift;
-  const root = j(fileInfo.source);
-
   function replaceSource(node) {
     const original = node.value;
     const newValue = resolvePath(fileInfo.path, node.value);
@@ -56,6 +55,15 @@ export default function tsImportAddExt(fileInfo, api) {
     if (f.node.source == null) return; // export const foo = 'a';
     replaceSource(f.node.source);
   });
+}
 
+/**
+ * @param {import('jscodeshift').FileInfo} fileInfo
+ * @param {import('jscodeshift').API} api
+ */
+export default function tsImportAddExt(fileInfo, api) {
+  const j = api.jscodeshift;
+  const root = j(fileInfo.source);
+  runTsImportAddExt(fileInfo, api, root);
   return root.toSource();
 }
