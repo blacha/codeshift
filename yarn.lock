@@ -412,9 +412,9 @@
     fastq "^1.6.0"
 
 "@types/jscodeshift@^0.11.2":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@types/jscodeshift/-/jscodeshift-0.11.2.tgz#cbad968d5bf6055529531364e57be119563e9685"
-  integrity sha512-CwgUni90VW+H3xc9Hekz/+ShEKPTvYbgVsDWCV4YksKoTKrWu9qfPpNaf7VDvbwjRp+PlkBJ7wZJNDpILzRiRw==
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/@types/jscodeshift/-/jscodeshift-0.11.4.tgz#adb0c806df6224911a0886220c6da9689eaf9405"
+  integrity sha512-9VYMEWsjpYgCe3DhHbr6JhdWjUZ2yAP7BQ4MpxLogyDW2K+PW+mGzaPeS/h+hCRkebiOw6NpF3V+gKY30kjOoA==
   dependencies:
     ast-types "^0.14.1"
     recast "^0.20.3"
