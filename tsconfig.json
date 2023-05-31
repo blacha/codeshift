@@ -1,0 +1,7 @@
+{
+  "extends": "@linzjs/style/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "build",
+    "noFallthroughCasesInSwitch": false
+  }
+}

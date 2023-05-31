@@ -33,6 +33,7 @@ function resolvePath(filePath, source) {
   if (!source.startsWith('.')) return output;
   return './' + output;
 }
+
 /**
  * @param {import('jscodeshift').FileInfo} fileInfo
  * @param {import('jscodeshift').API} api
