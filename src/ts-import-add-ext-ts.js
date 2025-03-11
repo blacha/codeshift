@@ -9,17 +9,28 @@ const path = require('path');
  */
 function resolvePath(filePath, source) {
   if (typeof source !== 'string') return source;
-  if (source.endsWith('.js')) return source;
+  // import path from 'node:path';
+  if (source.startsWith('node:')) return source;
+  // import { logger } from '../../log.ts';
+  if (source.endsWith('.ts')) return source;
+
+  if (source.endsWith('.js')) {
+    // import { ConfigLayer } from '@basemaps/config/build/config/tile.set.js';
+    if (source.startsWith('@')) return source;
+
+    // import { CliInfo } from '../../cli.info.js';
+    return source.slice(0, -3) + '.ts';
+  }
 
   const folderCount = source.split('/').length;
   // @ modules eg @some/package/baz
   if (source.startsWith('@')) {
-    if (folderCount > 2) return source + '.js';
+    if (folderCount > 2) return source + '.ts';
     return source;
   }
   // normal import 'some-package/index'
   if (!source.startsWith('.')) {
-    if (folderCount > 1) return source + '.js';
+    if (folderCount > 1) return source + '.ts';
     if (source === 'fs/promises') return source;
     return source;
   }
@@ -27,8 +38,8 @@ function resolvePath(filePath, source) {
   const pathName = path.join(path.dirname(filePath), source);
   const isFolder = fs.existsSync(pathName);
 
-  if (!isFolder) return source + '.js';
-  const output = path.join(source, 'index.js');
+  if (!isFolder) return source + '.ts';
+  const output = path.join(source, 'index.ts');
   // path.join removes './'
   if (!source.startsWith('.')) return output;
   return './' + output;

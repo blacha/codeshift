@@ -8,8 +8,7 @@
     "lint": "eslint 'src/*.js'"
   },
   "dependencies": {
-    "@types/jscodeshift": "^0.11.6",
-    "jscodeshift": "^0.15.0"
+    "jscodeshift": "^17.1.2"
   },
   "devDependencies": {
     "@linzjs/style": "^4.0.0",

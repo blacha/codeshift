@@ -6,9 +6,9 @@ Usage
 jscodeshift --transform=src/ts-import-add-ext.js --parser ts :pathToTypescriptFiles
 ```
 
-## src/ts-import-add-ext.js
+## src/ts-import-add-ext-ts.js
 
-Converts Typescript files that use `import {foo} from './bar'` into ESM module imports `import {foo} from './bar.js'`
+Converts Typescript files that use `import {foo} from './bar'` into ESM module imports `import {foo} from './bar.ts'`
 
 Examples
 
@@ -16,15 +16,15 @@ Before:
 ```typescript
 import { Foo } from './bar';
 export { Bar } from './bar';
-export * from './baz';
+export * from './baz.js';
 ```
 
 After: 
 
 ```typescript
-import { Foo } from './bar.js';
-export { Bar } from './bar.js';
-export * from './baz.js';
+import { Foo } from './bar.ts';
+export { Bar } from './bar.ts';
+export * from './baz.ts';
 ```
 
 ## src/ts-dirname.js
