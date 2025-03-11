@@ -3,7 +3,7 @@
 Usage
 
 ```
-jscodeshift --transform=src/ts-import-add-ext.js --parser ts :pathToTypescriptFiles
+npx jscodeshift --transform=src/ts-import-add-ext-ts.js --parser ts ~/git/project/src/**/*.ts
 ```
 
 ## src/ts-import-add-ext-ts.js
